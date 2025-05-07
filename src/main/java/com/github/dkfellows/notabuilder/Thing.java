@@ -30,23 +30,23 @@ public record Thing(int foo, int bar, double grill, String quux) {
         this(new Arguments(args));
     }
 
-    public static Args Foo(int value) {
-        return new Foo(value);
+    public sealed interface Args permits Foo, Bar, Grill, Quux {
+        public static Args Foo(int value) {
+            return new Foo(value);
+        }
+    
+        public static Args Bar(int value) {
+            return new Bar(value);
+        }
+    
+        public static Args Grill(double value) {
+            return new Grill(value);
+        }
+    
+        public static Args Quux(String value) {
+            return new Quux(value);
+        }
     }
-
-    public static Args Bar(int value) {
-        return new Bar(value);
-    }
-
-    public static Args Grill(double value) {
-        return new Grill(value);
-    }
-
-    public static Args Quux(String value) {
-        return new Quux(value);
-    }
-
-    public sealed interface Args permits Foo, Bar, Grill, Quux {}
     
     private record Foo(int foo) implements Args {}
     private record Bar(int bar) implements Args {}

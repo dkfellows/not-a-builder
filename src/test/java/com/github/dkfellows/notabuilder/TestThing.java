@@ -1,5 +1,5 @@
 package com.github.dkfellows.notabuilder;
-import static com.github.dkfellows.notabuilder.Thing.*;
+import static com.github.dkfellows.notabuilder.Thing.Args.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
