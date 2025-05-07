@@ -7,9 +7,9 @@ public class TestThing {
     @Test
     public void testThing() {
         var thing = new Thing(
-            Bar(123),
-            Foo(321),
-            Quux("hello world"));
+            bar(123),
+            foo(321),
+            quux("hello world"));
         System.out.println(thing);
         assertEquals(123, thing.bar());
     }

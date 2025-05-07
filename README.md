@@ -11,8 +11,8 @@ There are two classes of interest:
 This demonstrates the use of the not-a-builder pattern I'm trying:
 ```java
 var thing = new Thing(
-    Bar(123),
-    Quux("hello world"));
+    bar(123),
+    quux("hello world"));
 ```
 instead of needing to do something like:
 ```java
@@ -28,7 +28,7 @@ import static com.github.dkfellows.notabuilder.Thing.Args.*;
 at the top of the file.
 
 ## Thing - How this works
-The `Bar` and `Quux` calls generate wrapped objects (instances of `Thing.Args`, which is a sum type of the possible argument types), and they can be passed to a variadic constructor on `Thing`. That then extracts the values (simple loop + pattern-matching switch) and sets the real fields appropriately.
+The `bar` and `quux` calls generate wrapped objects (instances of `Thing.Args`, which is a sum type of the possible argument types), and they can be passed to a variadic constructor on `Thing`. That then extracts the values (simple loop + pattern-matching switch) and sets the real fields appropriately.
 
 ```java
 for (var arg: args) {

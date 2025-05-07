@@ -31,19 +31,19 @@ public record Thing(int foo, int bar, double grill, String quux) {
     }
 
     public sealed interface Args permits Foo, Bar, Grill, Quux {
-        public static Args Foo(int value) {
+        public static Args foo(int value) {
             return new Foo(value);
         }
     
-        public static Args Bar(int value) {
+        public static Args bar(int value) {
             return new Bar(value);
         }
     
-        public static Args Grill(double value) {
+        public static Args grill(double value) {
             return new Grill(value);
         }
     
-        public static Args Quux(String value) {
+        public static Args quux(String value) {
             return new Quux(value);
         }
     }
