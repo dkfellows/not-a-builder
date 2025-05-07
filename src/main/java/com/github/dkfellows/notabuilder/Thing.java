@@ -15,8 +15,8 @@ public record Thing(int foo, int bar, double grill, String quux) {
         Grill grill = DEFAULT_GRILL;
         Quux quux = DEFAULT_QUUX;
 
-        Arguments(ThingArgs[] args) {
-            for (ThingArgs arg: args) {
+        Arguments(Args[] args) {
+            for (var arg: args) {
                 switch (arg) {
                 case Foo f -> foo = f;
                 case Bar b -> bar = b;
@@ -26,21 +26,30 @@ public record Thing(int foo, int bar, double grill, String quux) {
             }
         }
     }
-    public Thing(ThingArgs... args) {
+    public Thing(Args... args) {
         this(new Arguments(args));
     }
-}
 
-sealed interface ThingArgs permits Foo, Bar, Grill, Quux {}
+    public static Args Foo(int value) {
+        return new Foo(value);
+    }
 
-record Foo(int foo) implements ThingArgs {
-}
+    public static Args Bar(int value) {
+        return new Bar(value);
+    }
 
-record Bar(int bar) implements ThingArgs {
-}
+    public static Args Grill(double value) {
+        return new Grill(value);
+    }
 
-record Grill(double grill) implements ThingArgs {
-}
+    public static Args Quux(String value) {
+        return new Quux(value);
+    }
 
-record Quux(String quux) implements ThingArgs {
-}
+    public sealed interface Args permits Foo, Bar, Grill, Quux {}
+    
+    private record Foo(int foo) implements Args {}
+    private record Bar(int bar) implements Args {}
+    private record Grill(double grill) implements Args {}
+    private record Quux(String quux) implements Args {}
+}    
