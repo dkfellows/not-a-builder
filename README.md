@@ -41,6 +41,6 @@ for (var arg: args) {
 }
 ```
 
-It's a bit messier than that because I'm using an outer record type (hence the `Thing.Arguments` class and the `private Thing(Arguments)` constructor), but for a conventional class all that machinery could be in the sole constructor.
+It's a bit messier than that because I'm using an outer record type (hence the `Thing.Arguments` class and the `private Thing(Arguments)` constructor, all of which looks rather Builder-y on the inside), but for a conventional class all that machinery could be in the sole constructor.
 
-Maybe I'll do an example with a standard outer class sometime; it makes some bits clearer and others less clear.
+Maybe I'll do an example with a standard outer class sometime; it makes some bits clearer (and others less clear).
