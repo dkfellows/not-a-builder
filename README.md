@@ -5,10 +5,11 @@ There are two classes of interest:
 
 * [Thing](https://github.com/dkfellows/not-a-builder/blob/main/src/main/java/com/github/dkfellows/notabuilder/Thing.java)
 * [UseThing](https://github.com/dkfellows/not-a-builder/blob/main/src/main/java/com/github/dkfellows/notabuilder/UseThing.java)
+* [TestThing](https://github.com/dkfellows/not-a-builder/blob/main/src/test/java/com/github/dkfellows/notabuilder/TestThing.java)
 
-## UseThing - How this is used
+## UseThing and TestThing - How this is used
 
-This demonstrates the use of the not-a-builder pattern I'm trying:
+These demonstrate the use of the not-a-builder pattern I'm trying:
 ```java
 var thing = new Thing(
     bar(123),
@@ -43,4 +44,32 @@ for (var arg: args) {
 
 It's a bit messier than that because I'm using an outer record type (hence the `Thing.Arguments` class and the `private Thing(Arguments)` constructor, all of which looks rather Builder-y on the inside), but for a conventional class all that machinery could be in the sole constructor.
 
-Maybe I'll do an example with a standard outer class sometime; it makes some bits clearer (and others less clear).
+# Using an outside class: Thing2
+This is basically the same, but with the outer entity being a standard class. That has the advantage of locking more of the machinery inside a single constructor.
+
+* [Thing2](https://github.com/dkfellows/not-a-builder/blob/main/src/main/java/com/github/dkfellows/notabuilder/Thing2.java)
+* [UseThing2](https://github.com/dkfellows/not-a-builder/blob/main/src/main/java/com/github/dkfellows/notabuilder/UseThing2.java) (very similar to with the version with records)
+* [TestThing2](https://github.com/dkfellows/not-a-builder/blob/main/src/test/java/com/github/dkfellows/notabuilder/TestThing2.java)
+
+```java
+public Thing2(Args... args) {
+    var foo = DEFAULT_FOO;
+    var bar = DEFAULT_BAR;
+    var grill = DEFAULT_GRILL;
+    var quux = DEFAULT_QUUX;
+
+    for (var arg: args) {
+        switch (arg) {
+        case Foo f -> foo = f;
+        case Bar b -> bar = b;
+        case Grill g -> grill = g;
+        case Quux q -> quux = q;
+        }
+    }
+
+    this.foo = foo.foo();
+    this.bar = bar.bar();
+    this.grill = grill.grill();
+    this.quux = quux.quux();
+}
+```
