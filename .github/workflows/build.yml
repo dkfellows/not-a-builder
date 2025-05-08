@@ -1,7 +1,7 @@
 name: Build 🧱👷
 on: push
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -14,3 +14,19 @@ jobs:
           java-version: ${{ matrix.version }}
           cache: maven
       - run: mvn clean test
+      - run: mvn site site:stage
+      - uses: actions/upload-pages-artifact@v3
+        with:
+            path: target/staging
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
