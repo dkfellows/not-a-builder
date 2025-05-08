@@ -7,6 +7,9 @@ There are two classes of interest:
 * [UseThing](https://github.com/dkfellows/not-a-builder/blob/main/src/main/java/com/github/dkfellows/notabuilder/UseThing.java)
 * [TestThing](https://github.com/dkfellows/not-a-builder/blob/main/src/test/java/com/github/dkfellows/notabuilder/TestThing.java)
 
+> [!NOTE]
+> I've put some [javadocs](https://dkfellows.github.io/not-a-builder/apidocs/) up too, not that this example is intended to ever be an API that is used directly. May it inspire, but not be built upon itself.
+
 ## UseThing and TestThing - How this is used
 
 These demonstrate the use of the not-a-builder pattern I'm trying:
