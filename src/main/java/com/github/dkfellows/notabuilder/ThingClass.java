@@ -3,44 +3,42 @@ package com.github.dkfellows.notabuilder;
 /**
  * A class that has four fields: foo, bar, grill and quux.
  */
-public class Thing2 {
+public class ThingClass {
     private final int foo;
     private final int bar;
     private final double grill;
     private final String quux;
 
-    private static final Foo DEFAULT_FOO = new Foo(0);
-    private static final Bar DEFAULT_BAR = new Bar(0);
-    private static final Grill DEFAULT_GRILL = new Grill(0.0);
-    private static final Quux DEFAULT_QUUX = new Quux("");
-
     /**
      * Make an instance of the class. 
      * @param args The labelled non-default arguments to pass.
-     * @see Thing2.Args#foo(int)
-     * @see Thing2.Args#bar(int)
-     * @see Thing2.Args#grill(double)
-     * @see Thing2.Args#quux(String)
+     * @see ThingClass.Args#foo(int)
+     * @see ThingClass.Args#bar(int)
+     * @see ThingClass.Args#grill(double)
+     * @see ThingClass.Args#quux(String)
      */
-    public Thing2(Args... args) {
-        var foo = DEFAULT_FOO;
-        var bar = DEFAULT_BAR;
-        var grill = DEFAULT_GRILL;
-        var quux = DEFAULT_QUUX;
+    public ThingClass(Args... args) {
+        // Defaults
+        var foo = 0;
+        var bar = 0;
+        var grill = 0.0;
+        var quux = "";
 
+        // Extract the args
         for (var arg: args) {
             switch (arg) {
-            case Foo f -> foo = f;
-            case Bar b -> bar = b;
-            case Grill g -> grill = g;
-            case Quux q -> quux = q;
+            case Foo f -> foo = f.foo();
+            case Bar b -> bar = b.bar();
+            case Grill g -> grill = g.grill();
+            case Quux q -> quux = q.quux();
             }
         }
 
-        this.foo = foo.foo();
-        this.bar = bar.bar();
-        this.grill = grill.grill();
-        this.quux = quux.quux();
+        // Assign the fields (once, because final)
+        this.foo = foo;
+        this.bar = bar;
+        this.grill = grill;
+        this.quux = quux;
     }
 
     /** Get the foo.
@@ -58,15 +56,13 @@ public class Thing2 {
     /** @return The string rendering of the object. */
     @Override
     public String toString() {
-        return STR."""
-        [foo=\{ foo },bar=\{ bar },grill=\{ grill },quux=\{ quux }]
-        """;
+        return String.format("[foo=%s,bar=%s,grill=%s,quux=%s]", foo, bar, grill, quux);
     }
 
     /** Argument labeller. */
     public sealed interface Args permits Foo, Bar, Grill, Quux {
         /**
-         * Label a value as a {@link Thing2#getFoo() foo}.
+         * Label a value as a {@link ThingClass#getFoo() foo}.
          * @param value The value to label.
          * @return The labelled value.
          */
@@ -74,7 +70,7 @@ public class Thing2 {
             return new Foo(value);
         }
         /**
-         * Label a value as a {@link Thing2#getBar() bar}.
+         * Label a value as a {@link ThingClass#getBar() bar}.
          * @param value The value to label.
          * @return The labelled value.
          */
@@ -82,7 +78,7 @@ public class Thing2 {
             return new Bar(value);
         }
         /**
-         * Label a value as a {@link Thing2#getGrill() grill}.
+         * Label a value as a {@link ThingClass#getGrill() grill}.
          * @param value The value to label.
          * @return The labelled value.
          */
@@ -90,7 +86,7 @@ public class Thing2 {
             return new Grill(value);
         }
         /**
-         * Label a value as a {@link Thing2#getQuux() quux}.
+         * Label a value as a {@link ThingClass#getQuux() quux}.
          * @param value The value to label.
          * @return The labelled value.
          */

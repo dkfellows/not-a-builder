@@ -28,17 +28,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.14.0</version>
-                <configuration>
-                    <enablePreview>true</enablePreview>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.3</version>
-                <configuration>
-                    <argLine>--enable-preview</argLine>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -59,9 +53,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.11.2</version>
-                <configuration>
-                    <additionalOptions>--enable-preview</additionalOptions>
-                </configuration>
 				<reportSets>
 					<reportSet>
 						<reports>
@@ -69,6 +60,9 @@
 						</reports>
 					</reportSet>
 				</reportSets>
+                <configuration>
+                    <linksource>true</linksource>
+                </configuration>
 			</plugin>
         </plugins>
     </reporting>

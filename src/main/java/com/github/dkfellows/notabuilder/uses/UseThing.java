@@ -1,7 +1,9 @@
-package com.github.dkfellows.notabuilder;
-import static com.github.dkfellows.notabuilder.Thing.Args.*;
+package com.github.dkfellows.notabuilder.uses;
+import static com.github.dkfellows.notabuilder.ThingRecord.Args.*;
 
-/** An example of using a {@link Thing}. */
+import com.github.dkfellows.notabuilder.ThingRecord;
+
+/** An example of using a {@link ThingRecord}. */
 public class UseThing {
     private UseThing(){}
     /**
@@ -9,7 +11,7 @@ public class UseThing {
      * @param args Ignored
      */
     public static void main(String... args) {
-        var thing = new Thing(
+        var thing = new ThingRecord(
             bar(123),
             quux("hello world"));
 

@@ -7,48 +7,49 @@ package com.github.dkfellows.notabuilder;
  * @param grill The grill field.
  * @param quux The quux field.
  */
-public record Thing(int foo, int bar, double grill, String quux) {
-    private Thing(Arguments args) {
-        this(args.foo.foo(), args.bar.bar(), args.grill.grill(), args.quux.quux());
-    }
+public record ThingRecord(int foo, int bar, double grill, String quux) {
     private static final Foo DEFAULT_FOO = new Foo(0);
     private static final Bar DEFAULT_BAR = new Bar(0);
     private static final Grill DEFAULT_GRILL = new Grill(0.0);
     private static final Quux DEFAULT_QUUX = new Quux("");
 
-    private static final class Arguments {
-        Foo foo = DEFAULT_FOO;
-        Bar bar = DEFAULT_BAR;
-        Grill grill = DEFAULT_GRILL;
-        Quux quux = DEFAULT_QUUX;
-
-        Arguments(Args[] args) {
-            for (var arg: args) {
-                switch (arg) {
-                case Foo f -> foo = f;
-                case Bar b -> bar = b;
-                case Grill g -> grill = g;
-                case Quux q -> quux = q;
-                }
+    /** Helper because the canonical constructor must be called as the first statement.
+     * @param <T> The type of argument being extracted.
+     * @param args The argument list to extract from.
+     * @param defaultValue The default for the argument being extracted.
+     *      Note that <em>this also tells the runtime code what argument to extract</em>.
+     * @return The extracted argument, if present, or a default.
+     */
+    @SuppressWarnings("unchecked")
+    private static <T extends Args> T select(Args[] args, T defaultValue) {
+        T val = defaultValue;
+        for (var arg: args) {
+            if (arg.getClass() == val.getClass()) {
+                val = (T) arg;
             }
         }
+        return val;
     }
+
     /**
      * Make an instance of the record. 
      * @param args The labelled non-default arguments to pass.
-     * @see Thing.Args#foo(int)
-     * @see Thing.Args#bar(int)
-     * @see Thing.Args#grill(double)
-     * @see Thing.Args#quux(String)
+     * @see ThingRecord.Args#foo(int)
+     * @see ThingRecord.Args#bar(int)
+     * @see ThingRecord.Args#grill(double)
+     * @see ThingRecord.Args#quux(String)
      */
-    public Thing(Args... args) {
-        this(new Arguments(args));
+    public ThingRecord(Args... args) {
+        this(select(args, DEFAULT_FOO).foo(),
+            select(args, DEFAULT_BAR).bar(),
+            select(args, DEFAULT_GRILL).grill(),
+            select(args, DEFAULT_QUUX).quux());
     }
 
     /** Argument labeller. */
     public sealed interface Args permits Foo, Bar, Grill, Quux {
         /**
-         * Label a value as a {@link Thing#foo()}.
+         * Label a value as a {@link ThingRecord#foo()}.
          * @param value The value to label.
          * @return The labelled value.
          */
@@ -57,7 +58,7 @@ public record Thing(int foo, int bar, double grill, String quux) {
         }
     
         /**
-         * Label a value as a {@link Thing#bar()}.
+         * Label a value as a {@link ThingRecord#bar()}.
          * @param value The value to label.
          * @return The labelled value.
          */
@@ -66,7 +67,7 @@ public record Thing(int foo, int bar, double grill, String quux) {
         }
     
         /**
-         * Label a value as a {@link Thing#grill()}.
+         * Label a value as a {@link ThingRecord#grill()}.
          * @param value The value to label.
          * @return The labelled value.
          */
@@ -75,7 +76,7 @@ public record Thing(int foo, int bar, double grill, String quux) {
         }
     
         /**
-         * Label a value as a {@link Thing#quux()}.
+         * Label a value as a {@link ThingRecord#quux()}.
          * @param value The value to label.
          * @return The labelled value.
          */
