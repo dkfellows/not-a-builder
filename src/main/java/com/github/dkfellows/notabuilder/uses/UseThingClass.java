@@ -4,8 +4,8 @@ import static com.github.dkfellows.notabuilder.ThingClass.Args.*;
 import com.github.dkfellows.notabuilder.ThingClass;
 
 /** An example of using a {@link ThingClass}. */
-public class UseThing2 {
-    private UseThing2(){}
+public class UseThingClass {
+    private UseThingClass(){}
     /**
      * This is callable.
      * @param args Ignored

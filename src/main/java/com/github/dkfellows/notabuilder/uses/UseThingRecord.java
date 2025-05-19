@@ -4,8 +4,8 @@ import static com.github.dkfellows.notabuilder.ThingRecord.Args.*;
 import com.github.dkfellows.notabuilder.ThingRecord;
 
 /** An example of using a {@link ThingRecord}. */
-public class UseThing {
-    private UseThing(){}
+public class UseThingRecord {
+    private UseThingRecord(){}
     /**
      * This is callable.
      * @param args Ignored
