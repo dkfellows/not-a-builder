@@ -20,12 +20,13 @@ public record ThingRecord(int foo, int bar, double grill, String quux) {
      *      Note that <em>this also tells the runtime code what argument to extract</em>.
      * @return The extracted argument, if present, or a default.
      */
-    @SuppressWarnings("unchecked")
     private static <T extends Args> T select(Args[] args, T defaultValue) {
         T val = defaultValue;
         for (var arg: args) {
             if (arg.getClass() == val.getClass()) {
-                val = (T) arg;
+                @SuppressWarnings("unchecked")
+                var thisVal = (T) arg;
+                val = thisVal;
             }
         }
         return val;
