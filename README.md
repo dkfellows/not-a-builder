@@ -33,7 +33,7 @@ var thing = new ThingClass.Builder()
 ```
 All there is apart from that is the extra:
 ```java
-import static com.github.dkfellows.notabuilder.Thing.Args.*;
+import static com.github.dkfellows.notabuilder.ThingClass.Args.*;
 ```
 at the top of the file.
 
