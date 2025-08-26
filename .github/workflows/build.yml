@@ -15,7 +15,7 @@ jobs:
           cache: maven
       - run: mvn clean test
       - run: mvn site site:stage
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
             path: target/staging
   deploy:
