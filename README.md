@@ -68,7 +68,7 @@ this.grill = grill;
 this.quux = quux;
 ```
 
-It's a bit messier than that for `ThingRecord` because I'm using an outer record type which requires that all fields are assigned by a call to the canonical constructor as the first statement. This requires the use of a static method to do the extraction, and needs the default values to be wrapped instances.
+It's a bit messier than that for `ThingRecord` because I'm using an outer record type which requires that all fields are assigned by a call to the canonical constructor as the first statement. This requires (prior to [JEP 513](https://openjdk.org/jeps/513), i.e., Java 25) the use of a static method to do the extraction, and needs the default values to be wrapped instances.
 
 ```java
 private static <T extends Args> T select(Args[] args, T defaultValue) {
