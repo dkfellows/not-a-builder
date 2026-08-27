@@ -42,7 +42,7 @@ The important thing here is that we are making the instance by calling a constru
 The code relating to making a record, `ThingRecord`, is just the same, except for different class names. (Once made, things are slightly different too, but that's just as expected.)
 
 ## ThingClass - How this works
-The `bar` and `quux` calls generate wrapped objects (instances of `ThingClass.Args`, which is a sum type of the possible argument types), and they can be passed to a variadic constructor on `ThingClass`. That then extracts the values (simple loop + pattern-matching switch) and sets the real fields appropriately.
+The `bar` and `quux` calls generate wrapped objects (instances of `ThingClass.Args`, which is a sum type of the possible argument types), and they can be passed to a variadic constructor on `ThingClass`. That then extracts the values (simple loop + pattern-matching switch) and sets the real fields appropriately. In Java 25, with [JEP 513](https://openjdk.org/jeps/513) in place, the code for working with a record (`ThingRecord`) is virtually the same as in `ThingClass`, except that the fields are assigned by calling the standard generated constructor.
 
 ```java
 // Defaults
@@ -66,22 +66,6 @@ this.foo = foo;
 this.bar = bar;
 this.grill = grill;
 this.quux = quux;
+// For a record, this last step is instead:
+// this(foo, bar, grill, quux);
 ```
-
-It's a bit messier than that for `ThingRecord` because I'm using an outer record type which requires that all fields are assigned by a call to the canonical constructor as the first statement. This requires (prior to [JEP 513](https://openjdk.org/jeps/513), i.e., Java 25) the use of a static method to do the extraction, and needs the default values to be wrapped instances.
-
-```java
-private static <T extends Args> T select(Args[] args, T defaultValue) {
-    T val = defaultValue;
-    for (var arg: args) {
-        if (arg.getClass() == val.getClass()) {
-            @SuppressWarnings("unchecked")
-            var thisVal = (T) arg;
-            val = thisVal;
-        }
-    }
-    return val;
-}
-```
-
-The unchecked cast is actually safe here (under a trivial non-null assumption), but the language type logic doesn't do that sort of runtime type constraint so we need an unchecked cast anyway.
