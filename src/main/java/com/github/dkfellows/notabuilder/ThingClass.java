@@ -10,7 +10,7 @@ public class ThingClass {
     private final String quux;
 
     /**
-     * Make an instance of the class. 
+     * Make an instance of the class.
      * @param args The labelled non-default arguments to pass.
      * @see ThingClass.Args#foo(int)
      * @see ThingClass.Args#bar(int)
@@ -24,13 +24,13 @@ public class ThingClass {
         var grill = 0.0;
         var quux = "";
 
-        // Extract the args
+        // Extract the args by pattern matching
         for (var arg: args) {
             switch (arg) {
-            case Foo f -> foo = f.foo();
-            case Bar b -> bar = b.bar();
-            case Grill g -> grill = g.grill();
-            case Quux q -> quux = q.quux();
+            case Foo(var val) -> foo = val;
+            case Bar(var val) -> bar = val;
+            case Grill(var val) -> grill = val;
+            case Quux(var val) -> quux = val;
             }
         }
 
@@ -99,4 +99,4 @@ public class ThingClass {
     private record Bar(int bar) implements Args {}
     private record Grill(double grill) implements Args {}
     private record Quux(String quux) implements Args {}
-}    
+}

@@ -23,19 +23,23 @@ public record ThingRecord(int foo, int bar, double grill, String quux) {
         var grill = 0.0;
         var quux = "";
 
-        // Extract the args
+        // Extract the args by pattern matching
         for (var arg: args) {
             switch (arg) {
-            case Foo f -> foo = f.foo();
-            case Bar b -> bar = b.bar();
-            case Grill g -> grill = g.grill();
-            case Quux q -> quux = q.quux();
+            case Foo(var val) -> foo = val;
+            case Bar(var val) -> bar = val;
+            case Grill(var val) -> grill = val;
+            case Quux(var val) -> quux = val;
             }
         }
 
         // Pass to the primary, auto-generated constructor
         this(foo, bar, grill, quux);
     }
+
+    /** @deprecated Use the other constructor instead. */
+    @Deprecated(since = "0.1")
+    public ThingRecord {}
 
     /** Argument labeller. */
     public sealed interface Args permits Foo, Bar, Grill, Quux {
